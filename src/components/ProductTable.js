@@ -1,30 +1,24 @@
 import React from 'react';
 import ProductRow from './ProductRow';
-import ProductCategoryRow from './ProductCategoryRow';
 
 class ProductTable extends React.Component {
 
-  renderCategory = (category) => {
-    const products = this.props.products[category];
-    return (
-      <React.Fragment>
-        <ProductCategoryRow category={category} />
-        {
-          products.map((product) => {
-            return <ProductRow product={product} key={product.name} />
-          })
-        }
-      </React.Fragment>
-    );
-  }
-
-  renderBody = () => {
-    const products = this.props.products;
-    const categories = Object.keys(products);
-    return categories.map((category) => this.renderCategory(category));
+  renderProducts = (products) => {
+    return products.map((product) => {
+      return <ProductRow product={product} key={product.name} />
+    });
   }
 
   render() {
+    const filterText = this.props.filterText;
+    const inStockOnly = this.props.inStockOnly;
+
+    const products = this.props.products.filter((product) => {
+      const hasText = product.name.includes(filterText);
+      const inStock = inStockOnly ? product.stocked : true;
+      return hasText && inStock; 
+    });
+
     return (
       <table>
         <thead>
@@ -34,7 +28,7 @@ class ProductTable extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {this.renderBody()}
+          {this.renderProducts(products)}
         </tbody>
       </table>
     )
