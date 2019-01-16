@@ -17,11 +17,32 @@ class App extends Component {
     inStockOnly: false,
   }
 
+  handleFilterTextChange = (e) => {
+    this.setState({
+      filterText: e.target.value
+    });
+  }
+
+  handleCheckboxChange = (e) => {
+    this.setState({
+      inStockOnly: e.target.value
+    });
+  }
+
   render() {
     return (
       <div>
-        <SearchBar filterText={this.state.filterText} inStockOnly={this.state.inStockOnly} />
-        <ProductTable products={PRODUCTS} filterText={this.state.filterText} inStockOnly={this.state.inStockOnly} />
+        <SearchBar
+          filterText={this.state.filterText}
+          inStockOnly={this.state.inStockOnly}
+          onFilterTextChange={this.handleFilterTextChange}
+          onCheckboxChange={this.handleCheckboxChange}
+        />
+        <ProductTable
+          products={PRODUCTS}
+          filterText={this.state.filterText}
+          inStockOnly={this.state.inStockOnly}
+        />
       </div>
     );
   }
