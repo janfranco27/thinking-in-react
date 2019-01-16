@@ -1,25 +1,26 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import SearchBar from './components/SearchBar';
+import ProductTable from './components/ProductTable';
+
+const PRODUCTS = {
+  'Sporting Goods': [
+    {price: '$49.99', stocked: true, name: 'Football'},
+    {price: '$9.99', stocked: true, name: 'Baseball'},
+    {price: '$29.99', stocked: false, name: 'Basketball'}
+  ],
+  'Electronics': [
+    {price: '$99.99', stocked: true, name: 'iPod Touch'},
+    {price: '$399.99', stocked: false, name: 'iPhone 5'},
+    {price: '$199.99', stocked: true, name: 'Nexus 7'}
+  ]
+};
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React by clicking here
-          </a>
-        </header>
+      <div>
+        <SearchBar />
+        <ProductTable products={PRODUCTS} />
       </div>
     );
   }
